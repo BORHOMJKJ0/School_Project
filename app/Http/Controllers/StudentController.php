@@ -16,7 +16,7 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        return response()->json(ProductResource::make($student));
+        return response()->json(StudentResource::make($student));
     }
 
     public function store(StudentRequest $request)
@@ -29,11 +29,11 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $request->validate([
-            'name' => 'string|max:50|unique:Student,name',
-            'age' => 'numeric|max:3',
-            'class' => 'string|max:50',
-            'number' => 'numeric|max:250|unique:Student,number',
-            'avg' => 'numeric|max:10',
+            'name' => 'string|unique:students,name',
+            'age' => 'numeric',
+            'class' => 'string',
+            'number' => 'numeric|unique:students,number',
+            'avg' => 'numeric',
         ]);
         $student->update($request->all());
 
