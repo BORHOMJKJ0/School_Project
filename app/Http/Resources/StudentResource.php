@@ -15,12 +15,12 @@ class StudentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'number' => $this->number,
             'name' => $this->name,
             'age' => $this->age,
+            'number' => $this->number,
             'class' => $this->class,
             'avg' => $this->avg,
-            //  'created_at' => $this->created_at->format('Y-m-d H:i'),
+            'Date_of_apply_to_school' => $this->created_at->format('Y-m-d H:i'),
         ];
     }
 }
