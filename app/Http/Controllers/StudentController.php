@@ -29,11 +29,11 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $request->validate([
-            'name' => 'string|unique:students,name',
-            'age' => 'numeric',
-            'class' => 'string',
+            'name' => 'string|max:250|unique:students,name',
+            'age' => 'numeric|max:20',
+            'class' => 'string|max:150',
             'number' => 'numeric|unique:students,number',
-            'avg' => 'numeric',
+            'avg' => 'numeric|max:100',
         ]);
         $student->update($request->all());
 

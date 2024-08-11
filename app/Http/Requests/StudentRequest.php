@@ -9,11 +9,11 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:students,name',
-            'age' => 'required|numeric',
-            'class' => 'required|string',
+            'name' => 'required|string|max:250|unique:students,name',
+            'age' => 'required|numeric|max:20',
+            'class' => 'required|string|max:150',
             'number' => 'required|numeric|unique:students,number',
-            'avg' => 'required|numeric',
+            'avg' => 'required|numeric|max:100',
         ];
     }
 }
