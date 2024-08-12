@@ -18,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::controller(StudentController::class)->group(function () {
+    Route::patch('/students/restore/{students}', 'restore');
+    Route::delete('/students/forceDelete/{students}', 'forceDelete');
+    Route::get('/students/trash', 'trash');
+    Route::get('/students/trashShow/{students}', 'trashShow');
+});
 Route::apiResource('students', StudentController::class);
+
