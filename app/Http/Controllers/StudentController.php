@@ -35,16 +35,24 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
-        $request->validate([
-            'name' => 'string|max:250|unique:students,name',
-            'age' => 'numeric|max:20',
-            'class' => 'string|max:150',
-            'number' => 'numeric|unique:students,number',
-            'avg' => 'numeric|max:100',
-        ]);
-        $student->update($request->all());
+        try {
+            $validatedData = $request->validate([
+                'name' => 'string|max:250|unique:students,name',
+                'age' => 'numeric|max:20',
+                'class' => 'string|max:150',
+                'number' => 'numeric|unique:students,number',
+                'avg' => 'numeric|max:100',
+            ]);
 
-        return response()->json(StudentResource::make($student), 200);
+            $student->update($validatedData);
+
+            return response()->json(StudentResource::make($student), 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $e->errors(),
+            ], 400);
+        }
     }
 
     public function destroy(Student $student)
